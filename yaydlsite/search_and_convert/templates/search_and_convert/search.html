@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+    </script>
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js">
+    </script>
+    <script
+      src="https://material.angularjs.org/latest/angular-material.min.js">
+    </script>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css"
+      href="{% static 'styles.css' %}">
+    </link>
+  </head>
+
+  <body ng-app="ngAnimate">
+    <div style="border-radius:10px;background-color:red;">
+      <h1>YAYDL!</h1>
+      <h5><b>Y</b>et <b>A</b>nother <b>Y</b>outube <b>D</b>own<b>L</b>oader</h5>
+    </div>
+
+    <div ng-hide="searchform" class="content-area"
+      ng-app="yaydlSearchApp", ng-controller="yaydlSearchCtrl">
+      <p>
+        <input type="text" ng-model="searchtext"></input>
+        <button class="md-raised" type="search" ng-model="searchbutton">
+          Search
+        </button>
+      </p>
+      <p ng-bind="searchtext"></p>
+    </div>
+
+    <script type="text/javascript">
+      var app = angular.module('yaydlSearchApp', ['ngAnimate']);
+      app.controller('yaydlSearchCtrl',
+        function($scope) {
+          // $scope.searchtext = "Example";
+        }
+      );
+    </script>
+
+  </body>
+</html>

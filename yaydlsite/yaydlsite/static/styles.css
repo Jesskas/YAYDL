@@ -1,0 +1,57 @@
+h1 {
+  font-weight: normal; text-align: center; font-family: helvetica;
+  border-style: none; margin: 0; color: white;
+}
+h5 {
+  font-weight: normal; text-align: center; font-family: helvetica;
+  border-style: none; margin: 0; color: white;
+}
+div.content-area {
+  transition: all linear 0.5s;
+  border-color: lightgray; /*border-radius: 5px;*/ border-style: solid;
+  border-width: thin; margin-top: 5px; align-content: center;
+  text-align: center;
+  position: relative;
+}
+/*div.content-area {
+  transition: all linear 0.5s;
+  background-color: lightblue;
+  height: 100px;
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}*/
+.ng-hide {
+  background-color: transparent;
+  top:-200px;
+  left: 200px;
+}
+
+
+
+/*
+From the Django hello page:
+
+html * { padding:0; margin:0; }
+body * { padding:10px 20px; }
+body * * { padding:0; }
+body { font:small sans-serif; }
+body>div { border-bottom:1px solid #ddd; }
+h1 { font-weight:normal; }
+h2 { margin-bottom:.8em; }
+h2 span { font-size:80%; color:#666; font-weight:normal; }
+h3 { margin:1em 0 .5em 0; }
+h4 { margin:0 0 .5em 0; font-weight: normal; }
+table { border:1px solid #ccc; border-collapse: collapse; width:100%; background:white; }
+tbody td, tbody th { vertical-align:top; padding:2px 3px; }
+thead th {
+  padding:1px 6px 1px 3px; background:#fefefe; text-align:left;
+  font-weight:normal; font-size:11px; border:1px solid #ddd;
+}
+tbody th { width:12em; text-align:right; color:#666; padding-right:.5em; }
+#summary { background: #e0ebff; }
+#summary h2 { font-weight: normal; color: #666; }
+#explanation { background:#eee; }
+#instructions { background:#f6f6f6; }
+#summary table { border:none; background:transparent; }*/
