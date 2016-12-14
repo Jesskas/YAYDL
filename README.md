@@ -15,7 +15,7 @@ youtube downloader pages.
 How to use locally:
 ```
 git clone https://github.com/jesskas/YAYDL.git
-python manage.py runserver
+[name of python executable] manage.py runserver
 ```
 Hopefully, provided the expected ports are available, you should simply
 be able to visit `http://localhost:8000` and see the page.
