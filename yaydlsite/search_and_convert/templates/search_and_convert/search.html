@@ -1,48 +1,111 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Title</title>
+    <title>YAYDL - Yet Another Youtube DownLoader</title>
+    <!-- Load scripts -->
+    <script src=
+      "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"
+    ></script>
+    <script src=
+      "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"
+    ></script>
     <script
-      src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
-    </script>
+      src="http://code.jquery.com/jquery-latest.min.js"
+    ></script>
     <script
-      src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js">
-    </script>
-    <script
-      src="https://material.angularjs.org/latest/angular-material.min.js">
-    </script>
-
+      src="https://apis.google.com/js/client.js?onload=googleApiClientReady"
+    ></script>
+    <!-- Load static files -->
     {% load static %}
     <link rel="stylesheet" type="text/css"
       href="{% static 'styles.css' %}">
     </link>
   </head>
 
-  <body ng-app="ngAnimate">
-    <div style="border-radius:10px;background-color:red;">
+  <body ng-app="ngAnimate" ng-controller="mainCtrl" ng-init="loaded=false">
+    <div class="header">
       <h1>YAYDL!</h1>
       <h5><b>Y</b>et <b>A</b>nother <b>Y</b>outube <b>D</b>own<b>L</b>oader</h5>
     </div>
 
-    <div ng-hide="searchform" class="content-area"
-      ng-app="yaydlSearchApp", ng-controller="yaydlSearchCtrl">
+    <div class="content-area animate-show" ng-show="loaded"
+      ng-init="resultList = [];">
       <p>
-        <input type="text" ng-model="searchtext"></input>
-        <button class="md-raised" type="search" ng-model="searchbutton">
+        <input type="text" id="searchText"></input>
+        <button type="search" name="searchBtn"
+          ng-model="searchbutton" ng-click="search()">
           Search
         </button>
       </p>
-      <p ng-bind="searchtext"></p>
-    </div>
+      <div ng-repeat="result in resultList">
+        <span>{{result.title}}</span>
+      </div>
 
-    <script type="text/javascript">
-      var app = angular.module('yaydlSearchApp', ['ngAnimate']);
-      app.controller('yaydlSearchCtrl',
-        function($scope) {
-          // $scope.searchtext = "Example";
+      <!--                     -->
+      <!-- The main controller -->
+      <!--                     -->
+      <script type="text/javascript">
+        var API_KEY;
+
+        // Gathers API_KEY from key.file
+        // TODO: XMLHttpRequest is synchronous, consider an async solution
+        function loadkey() {
+          {% load static %}
+          var file = new XMLHttpRequest();
+          var api_key;
+          file.open("GET", '{% static 'key.css' %}', false);
+          file.onreadystatechange = function() {
+            if (file.readyState === 4) {
+              if (file.status === 200 || file.status == 0) {
+                api_key = file.responseText;
+              }
+            }
+          }
+          file.send(null);
+          return api_key;
         }
-      );
-    </script>
 
+        // Returns the JSON response of search
+        function getRequest() {
+          gapi.client.setApiKey(API_KEY);
+          gapi.client.load('youtube', 'v3', function() {
+            isLoad = true;
+          });
+          // TODO: Add async verification of some sort, this won't work
+          console.log(gapi.client.youtube);
+          var searchText = $('#searchText').val();
+          var request = gapi.client.youtube.search.list({
+            q: searchText,
+            part: 'snippet'
+          });
+          return request;
+        }
+
+        // Called by AngularJS at initialization
+        angular.module('ngAnimate', [])
+          .controller('mainCtrl', ['$scope', '$timeout',
+          function($scope, $timeout) {
+              $timeout(function() {
+                $scope.loaded = true;
+                $scope.$apply();
+              }, 500);
+
+              $scope.search = function($scope) {
+                API_KEY = loadkey();
+                var request = getRequest();
+                // TODO: There is a bug where this only works every second time.
+                request.execute(function(response) {
+                  output = response.result.items;
+                  // $scope.resultList.push(output[1].snippet.title);
+                });
+                console.log('output: ', output);
+                $scope.resultList.push(output[1].snippet.title);
+              };
+          }]);
+      </script>
+      <!--                     -->
+      <!-- The main controller -->
+      <!--                     -->
+    </div>
   </body>
 </html>

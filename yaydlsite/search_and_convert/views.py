@@ -2,13 +2,26 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.template import loader
 
-# from .models import [classes]
+# Youtube Search API stuff
 
+
+
+
+
+# Called on GET /
 def index(request):
     return render(request, 'search_and_convert/search.html')
 
-# def search(request):
-#     return HttpResponse("Search")
+# Called on "Search" button click
+def search(request):
+    # if (request.GET.get('searchBtn')):
+    #    print('user click!')
+    #    return HttpResponse("y halo thar")
+    #    return 'hey'
+    #    searchBtn = "hey"
+    return HttpResponse("Search")
+
+
 #
 # def select(request):
 #     return HttpResponse("Select")
