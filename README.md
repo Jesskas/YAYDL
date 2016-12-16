@@ -1,4 +1,4 @@
-# YAYDL
+# YAYDL [Note: Under very introductory development]
 **Y**et **A**nother **Y**outube **D**own**L**oader is a silly name, but does
 exactly what it says on the tin. This can search for a youtube video by name,
 and then ideally, you can select one of the resulting videos, and download
